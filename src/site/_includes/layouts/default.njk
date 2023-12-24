@@ -1,0 +1,26 @@
+---
+layout: base
+---
+
+{% include 'partials/global/header.njk' %}
+
+<main class="u-flex-1 u-py-40 sm:u-py-80" role="main" data-taxi>
+  <div data-taxi-view>
+    {% if posts %}
+      {% if pagination.pageNumber != 0 %}
+      <div class="l-container l-container--small" data-s2r="group">
+      <header data-s2r-el="block-fade-up">
+          <h1 class="u-h2 u-text-grey-light-c" data-s2r-el="block-fade-up">第{{pagination.pageNumber}}页</h1>
+      </header>
+      </div>
+      {% endif %}
+      {% include 'partials/pages/pageSections.njk' %}
+    {% else %}
+      {{ content | safe }}
+    {% endif %}
+    
+  </div>
+</main>
+
+{% include 'partials/global/footer.njk' %}
+{% include 'partials/global/menuOverlay.njk' %}

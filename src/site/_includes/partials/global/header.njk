@@ -1,0 +1,25 @@
+<header class="u-bg-black u-py-20 u-z-header" role="banner">
+  <div class="l-container u-flex u-items-center u-justify-between">
+    <h1>
+      <a href="{{ '/' | absoluteUrl }}" class="xs:u-flex xs:u-items-center" aria-label="{{ site.title }}" x-data @click="$store.menuOverlay.close()">
+        {% svg 'icon-bymattlee', '0 0 50 50', 'u-block u-w-40' %}
+        <span class="u-hidden u-uppercase md:u-block md:u-text-22 md:u-ml-10">{{ site.title }} | {{ site.description }}</span>
+      </a>
+    </h1>
+    <button class="u-font-heading u-text-16 u-font-bold u-uppercase u-relative sm:u-hidden" type="button" x-data @click="$store.menuOverlay.toggle()">
+      <span x-data x-show="!$store.menuOverlay.isOpen">Menu</span>
+      <span x-data x-show="$store.menuOverlay.isOpen">Close</span>
+    </button>
+    {% if site.navigation %}
+      <nav class="u-hidden sm:u-block">
+        <ul>
+          {% for menuItem in site.navigation %}
+            <li class="u-inline-block {% if loop.index > 1 %} u-ml-20 md:u-ml-40{% endif %}">
+              <a href="{{ menuItem.url | absoluteUrl }}" class="u-inline-block u-font-heading u-text-14 u-uppercase{% isSamePageOrSection menuItem.url, page.url, ' u-text-white' %} js-menu-item"{% if menuItem.openInNewTab %} target="_blank"{% endif %}>{{ menuItem.label }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    {% endif %}
+  </div>
+</header>

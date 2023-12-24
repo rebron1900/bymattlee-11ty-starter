@@ -1,0 +1,46 @@
+<footer class="u-bg-grey-dark-1 u-py-40 u-text-center sm:u-py-60" role="contentinfo">
+  <div class="l-container">
+    <a href="{{ '/' | absoluteUrl }}" aria-label="{{ settings.seo.siteName }}">
+      {% svg 'icon-bymattlee', '0 0 50 50', 'u-w-40' %}
+    </a>
+    {% if sections.footer.menu %}
+      <nav class="u-mt-40">
+        <ul>
+          {% for menuItem in sections.footer.menu %}
+            <li class="u-inline-block u-mx-10 md:u-mx-20">
+              <a href="{{ menuItem.url | absoluteUrl }}" class="u-inline-block u-font-heading u-text-14 u-uppercase{% isSamePageOrSection menuItem.url, page.url, ' u-text-white' %} js-menuItem"{% if menuItem.openInNewTab %} target="_blank"{% endif %}>{{ menuItem.name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    {% endif %}
+    {% if settings.social.socialSites %}
+      <nav class="u-mt-40">
+        <ul>
+          {% for socialSite in settings.social.socialSites %}
+            <li class="u-inline-block u-mx-5 md:u-mx-10">
+              {% if socialSite.facebookUrl %}
+                <a href="{{ socialSite.facebookUrl }}" class="u-inline-block" target="_blank" rel="noopener" aria-label="Like On Facebook">
+                  {% svg 'icon-facebook', '0 0 50 50', 'u-w-30' %}
+                </a>
+              {% elseif socialSite.twitterUrl %}
+                <a href="{{ socialSite.twitterUrl }}" class="u-inline-block" target="_blank" rel="noopener" aria-label="Follow On Twitter">
+                  {% svg 'icon-twitter', '0 0 50 50', 'u-w-30' %}
+                </a>
+              {% elseif socialSite.instagramUrl %}
+                <a href="{{ socialSite.instagramUrl }}" class="u-inline-block" target="_blank" rel="noopener" aria-label="Follow On Instagram">
+                  {% svg 'icon-instagram', '0 0 50 50', 'u-w-30' %}
+                </a>
+              {% elseif socialSite.youtubeUrl %}
+                <a href="{{ socialSite.youtubeUrl }}" class="u-inline-block" target="_blank" rel="noopener" aria-label="Subscribe On YouTube">
+                  {% svg 'icon-youtube', '0 0 50 50', 'u-w-30' %}
+                </a>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    {% endif %}
+    <p class="u-mt-40 u-text-12 u-uppercase">&copy; {% currentYear %} ByMattLee. All Rights Reserved.</p>
+  </div>
+</footer>

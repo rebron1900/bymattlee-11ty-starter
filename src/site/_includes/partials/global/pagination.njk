@@ -1,0 +1,14 @@
+  {% if pagination.previousPageHref or pagination.nextPageHref %}
+  <div class="u-flex u-justify-between u-text-14 u-uppercase u-mt-40 md:u-mt-60" data-s2r-el="block-fade-up" data-s2r-delay="0.5">
+    <div>
+      {% if post.permalink != pagination.previousPageHref %}
+        <a class="o-button" href="{{ pagination.previousPageHref }}">&laquo; Previous Article</a>
+      {% endif %}
+    </div>
+    <div>
+      {% if post.permalink != pagination.nextPageHref %}
+        <a class="o-button" href="{{ pagination.nextPageHref }}">Next Article &raquo;</a>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}

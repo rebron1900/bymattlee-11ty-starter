@@ -1,0 +1,19 @@
+---
+layout: page
+bodyClasses: p-articleCategory
+pagination:
+  data: collections.tags
+  size: 1
+  alias: category
+permalink: /tag/{{ category.slug }}/
+eleventyComputed:
+  title: "'{{ category.name | safe }}' Articles"
+  pageDescription: "{{ category.description | safe }}"
+excludeFromSitemap: true
+---
+
+<div class="u-mt-20 md:u-mt-40" data-s2r-el="stagger-fade-up" data-s2r-delay="0.2">
+  {% for post in category.posts %}
+    {% include 'partials/articles/preview.njk' %}
+  {% endfor %}
+</div>

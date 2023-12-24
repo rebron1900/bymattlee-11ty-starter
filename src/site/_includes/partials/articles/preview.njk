@@ -1,0 +1,29 @@
+<article{% if loop.index > 1 %} class="u-mt-30 md:u-mt-50"{% endif %}>
+  <header>
+    {% if post.title %}
+      <h2 class="u-h4"><a href="{{ post.slug | articleUrl  }}" class="u-text-grey-light-a">{{ post.title }}</a></h2>
+    {% endif %}
+    {% if tag.name %}
+      <h2 class="u-h4"><a href="{{ category.slug | articleUrl  }}" class="u-text-grey-light-a">{{ category.name }}</a></h2>
+    {% endif %}
+
+    <div class="u-mt-5">
+      <time class="u-text-14 u-uppercase" datetime="{{ post.published_at | htmlDate  }}">{{ post.published_at | htmlDate  }}</time>
+      {% if post.tags.length %}
+        <span>/</span>
+        <span class="u-uppercase u-text-14">
+          Categories:
+          {% for tag in post.tags %}
+            <a href="{{ tag.slug | articleCategoryUrl }}">{{ tag.name }}</a>
+            {%- if not loop.last -%}, {%- endif -%}
+          {% endfor %}
+        </span>
+      {% endif %} 
+    </div>
+  </header>
+
+  {% if post.custom_excerpt %}
+    <p class="u-mt-20">{{ post.custom_excerpt }}</p>
+  {% endif %}
+
+</article>

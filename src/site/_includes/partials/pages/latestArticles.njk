@@ -1,0 +1,21 @@
+<section class="u-mt-60 md:u-mt-100">
+<div class="l-container l-container--small" data-s2r="group">
+  {% if pagination.pageNumber == 0 %}
+  <header>
+    <h1 class="u-h2 u-text-grey-light-c" data-s2r-el="block-fade-up">Latest Articles</h1>
+  </header>
+  {% endif %}
+  <div class="u-mt-20 md:u-mt-40" data-s2r-el="stagger-fade-up" data-s2r-delay="0.2">
+    {% if posts %}
+      {% for post in posts %}
+        {% if loop.index <= 5 %}
+          {% include 'partials/articles/preview.njk' %}
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <p>No articles have been written.</p>
+    {% endif %}
+  </div>
+  {% include 'partials/global/pagination.njk' %}
+</div>
+</section>

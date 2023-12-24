@@ -1,0 +1,10 @@
+---
+layout: default
+bodyClasses: p-page
+viewName: page
+pagination:
+  data: collections.posts
+  size: 7
+  alias: posts
+permalink: /{% if pagination.pageNumber != 0 %}page/{{ pagination.pageNumber }}/{% endif %}
+---
