@@ -7,8 +7,8 @@
   "scripts": {
     "start": "yarn dev",
     "dev": "set NODE_ENV=development & gulp",
-    "stage": "set NODE_ENV=staging gulp build",
-    "prod": "set NODE_ENV=production gulp build"
+    "stage": "set NODE_ENV=staging gulp & build",
+    "prod": "set NODE_ENV=production gulp & build"
   },
   "keywords": [
     "ByMattLee",
