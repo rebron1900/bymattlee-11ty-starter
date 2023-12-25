@@ -14,6 +14,6 @@ module.exports = {
     url: 'https://1900.live',
     key: '78e1deb26260dcc3a2fbf7cf82',
     version: "v5.0",
-    dev_url: 'http://localhost:3000'
+    dev_url: 'https://rebron1900-11tyghost.netlify.app'
   }
 }
