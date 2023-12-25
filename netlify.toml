@@ -1,5 +1,5 @@
 [build]
-  command = "yarn dev"
+  command = "yarn prod"
   publish = "dist"
 
 [[redirects]]
