@@ -40,7 +40,7 @@ permalink: /{{ article.slug }}/
 
     {% if article.html %}
       <div class="u-rich-text u-mt-30" data-s2r-el>
-        {{ article.html | safe }}
+        {{ article.html | highlight | safe }}
       </div>
     {% endif %}
 

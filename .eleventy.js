@@ -17,7 +17,7 @@ const rssDate = require("./eleventy/filters/rssDate.js");
 const articleUrl = require("./eleventy/filters/articleUrl.js");
 const articleCategoryUrl = require("./eleventy/filters/articleCategoryUrl.js");
 const blocksToHtml = require("./eleventy/filters/blocksToHtml.js");
-
+const highlight = require("./eleventy/filters/highlight.js");
 
 // Import shortcodes
 const imageUrl = require("./eleventy/shortcodes/imageUrl.js");
@@ -29,13 +29,6 @@ const currentYear = require("./eleventy/shortcodes/currentYear.js");
 const ghostContentAPI = require("@tryghost/content-api");
 const { ghost } = require("./config.js");
 
-const jsdom = require("jsdom");
-const Prism = require("prismjs");
-
-const { JSDOM } = jsdom;
-
-
-
 // Init Ghost API
 const api = new ghostContentAPI({ ...ghost });
 
@@ -46,7 +39,7 @@ const stripDomain = (url) => {
 
 module.exports = function (config) {
   // Transforms
-  config.addTransform("parseContent", parseContent);
+  // config.addTransform("parseContent", parseContent);
   if (process.env.NODE_ENV !== "development")
     config.addTransform("minifyHtml", minifyHtml);
   config.addTransform("addHeaderCredit", addHeaderCredit);
@@ -61,6 +54,7 @@ module.exports = function (config) {
   config.addFilter("articleUrl", articleUrl);
   config.addFilter("articleCategoryUrl", articleCategoryUrl);
   config.addFilter("blocksToHtml", blocksToHtml);
+  config.addFilter("highlight",highlight);
 
   // Shortcodes
   config.addShortcode("imageUrl", imageUrl);
@@ -125,10 +119,6 @@ module.exports = function (config) {
       });
 
     collection.forEach((post) => {
-
-      const dom = new JSDOM(post.html);
-      const tes  = Prism.highlightElement(dom);
-
       post.url = stripDomain(post.url);
       post.primary_author.url = stripDomain(post.primary_author .url);
       post.tags.map((tag) => (tag.url = stripDomain(tag.url)));
