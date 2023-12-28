@@ -2,18 +2,19 @@
 layout: page
 bodyClasses: p-articleCategory
 pagination:
-  data: collections.tags
+  data: collections.tagsPagetion
   size: 1
-  alias: category
-permalink: /tag/{{ category.slug }}/
+  alias: paged
+permalink: "tag/{{ paged.tagSlug }}/{% if paged.number > 1 %}{{ paged.number }}/{% endif %}index.html"
 eleventyComputed:
-  title: "'{{ category.name | safe }}' Articles"
+  title: "'{{ paged.tagName | safe }}' Articles"
   pageDescription: "{{ category.description | safe }}"
 excludeFromSitemap: true
 ---
 
 <div class="u-mt-20 md:u-mt-40" data-s2r-el="stagger-fade-up" data-s2r-delay="0.2">
-  {% for post in category.posts %}
+  {% for post in paged.posts %}
     {% include 'partials/articles/preview.njk' %}
   {% endfor %}
 </div>
+{% include 'partials/global/pagination.njk' %}

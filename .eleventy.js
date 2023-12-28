@@ -59,7 +59,6 @@ module.exports = function (config) {
     return Math.ceil(numberOfWords / wordsPerMinute);
   });
 
-
   // Shortcodes
   config.addShortcode("imageUrl", imageUrl);
   config.addShortcode("imageSrcset", imageSrcset);
@@ -77,8 +76,6 @@ module.exports = function (config) {
     const numberOfWords = text.split(/\s/g).length;
     return Math.ceil(numberOfWords / wordsPerMinute);
   });
-
-
 
   // Don't ignore the same files ignored in the git repo
   config.setUseGitIgnore(false);
@@ -149,7 +146,6 @@ module.exports = function (config) {
         console.error(err);
       });
 
-
     // Attach posts to their respective authors
     collection.forEach(async (author) => {
       const authorsPosts = posts.filter((post) => {
@@ -207,6 +203,70 @@ module.exports = function (config) {
     });
 
     return collection;
+  });
+
+  // Get all tags
+  config.addCollection("tagsPagetion", async function (collection) {
+    collection = await api.tags
+      .browse({
+        include: "count.posts",
+        limit: "all",
+        filter: "visibility:public",
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+    // Get all posts with their tags attached
+    const posts = await api.posts
+      .browse({
+        include: "tags,authors",
+        limit: "all",
+        order: "published_at desc",
+        filter: "visibility:public",
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+    posts.forEach((post) => {
+      post.url = stripDomain(post.url);
+      post.primary_author.url = stripDomain(post.primary_author.url);
+      post.tags.map((tag) => (tag.url = stripDomain(tag.url)));
+      post.tags = post.tags.filter((tag) => tag.visibility == "public");
+    });
+
+    const pagedPosts = [];
+
+    // Attach posts to their respective tags
+    collection.forEach(async (tag) => {
+      const taggedPosts = posts.filter((post) => {
+        post.url = stripDomain(post.url);
+        return post.primary_tag && post.primary_tag.slug === tag.slug;
+      });
+      // if (taggedPosts.length) tag.posts = taggedPosts;
+      if (taggedPosts.length) {
+        const numberOfPage = Math.ceil(taggedPosts.length/7);
+        for (let pageNum = 1; pageNum <= numberOfPage; pageNum++) {
+          const sliceFrom  = (pageNum - 1) * 7;
+          const sliceTo  = sliceFrom + 7;
+
+          pagedPosts.push({
+            tagName: tag.name,
+            tagSlug: tag.slug,
+            number: pageNum,
+            posts: taggedPosts.slice(sliceFrom, sliceTo),
+            first: pageNum === 1,
+            last: pageNum === 7
+          })
+          tag.posts = pagedPosts;
+        }
+        
+      }
+      tag.url = stripDomain(tag.url);
+    });
+
+    return pagedPosts;
   });
 
   return {
