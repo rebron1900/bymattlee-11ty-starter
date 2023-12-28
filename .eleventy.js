@@ -112,6 +112,7 @@ module.exports = function (config) {
       .browse({
         include: "tags,authors",
         limit: "all",
+        order: "published_at desc",
         filter: "visibility:public",
       })
       .catch((err) => {
@@ -126,9 +127,6 @@ module.exports = function (config) {
       // Convert publish date into a Date object
       post.published_at = new Date(post.published_at);
     });
-
-    // Bring featured post to the top of the list
-    collection.sort((post, nextPost) => nextPost.featured - post.featured);
 
     return collection;
   });
@@ -187,6 +185,7 @@ module.exports = function (config) {
       .browse({
         include: "tags,authors",
         limit: "all",
+        order: "published_at desc",
         filter: "visibility:public",
       })
       .catch((err) => {
