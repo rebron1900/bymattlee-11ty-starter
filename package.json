@@ -6,9 +6,10 @@
   "author": "Matt Lee <matt@bymattlee.com>",
   "scripts": {
     "start": "yarn dev",
-    "dev": "NODE_ENV=development gulp",
+    "dev": "NODE_ENV=development  gulp",
     "stage": "NODE_ENV=staging gulp build",
-    "prod": "NODE_ENV=production gulp build"
+    "prod": "NODE_ENV=production gulp build",
+    "DEBUG": "DEBUG=Eleventy* gulp"
   },
   "keywords": [
     "ByMattLee",

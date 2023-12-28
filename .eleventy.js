@@ -54,7 +54,7 @@ module.exports = function (config) {
   config.addFilter("articleUrl", articleUrl);
   config.addFilter("articleCategoryUrl", articleCategoryUrl);
   config.addFilter("blocksToHtml", blocksToHtml);
-  config.addFilter("highlight",highlight);
+  config.addFilter("highlight", highlight);
 
   // Shortcodes
   config.addShortcode("imageUrl", imageUrl);
@@ -112,7 +112,7 @@ module.exports = function (config) {
       .browse({
         include: "tags,authors",
         limit: "all",
-        filter: "visibility:public"
+        filter: "visibility:public",
       })
       .catch((err) => {
         console.error(err);
@@ -120,9 +120,9 @@ module.exports = function (config) {
 
     collection.forEach((post) => {
       post.url = stripDomain(post.url);
-      post.primary_author.url = stripDomain(post.primary_author .url);
+      post.primary_author.url = stripDomain(post.primary_author.url);
       post.tags.map((tag) => (tag.url = stripDomain(tag.url)));
-      post.tags = post.tags.filter(tag => tag.visibility == 'public');
+      post.tags = post.tags.filter((tag) => tag.visibility == "public");
       // Convert publish date into a Date object
       post.published_at = new Date(post.published_at);
     });
@@ -138,7 +138,7 @@ module.exports = function (config) {
     collection = await api.authors
       .browse({
         limit: "all",
-        filter: "visibility:public"
+        filter: "visibility:public",
       })
       .catch((err) => {
         console.error(err);
@@ -154,6 +154,7 @@ module.exports = function (config) {
       .catch((err) => {
         console.error(err);
       });
+
 
     // Attach posts to their respective authors
     collection.forEach(async (author) => {
@@ -191,6 +192,15 @@ module.exports = function (config) {
       .catch((err) => {
         console.error(err);
       });
+
+    posts.forEach((post) => {
+      post.url = stripDomain(post.url);
+      post.primary_author.url = stripDomain(post.primary_author.url);
+      post.tags.map((tag) => (tag.url = stripDomain(tag.url)));
+      post.tags = post.tags.filter((tag) => tag.visibility == "public");
+      // Convert publish date into a Date object
+      post.published_at = new Date(post.published_at);
+    });
 
     // Attach posts to their respective tags
     collection.forEach(async (tag) => {

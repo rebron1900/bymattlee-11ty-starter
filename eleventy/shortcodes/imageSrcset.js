@@ -42,7 +42,8 @@ module.exports = (image, isLocal = false) => {
   } else {
     // If image is coming from Sanity, generate an image at every size
     imageWidths.forEach((width) =>
-      imageSrcset.push(`${imageUrl(image, width)} ${width}w`)
+      // imageSrcset.push(`${imageUrl(image, width)} ${width}w`)
+      imageSrcset.push(image)
     )
   }
 
