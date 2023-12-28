@@ -7,8 +7,8 @@ module.exports = {
   },
   envUrls: {
     development: 'http://localhost:3000',
-    staging: 'http://11ty.1900.live',
-    production: 'http://11ty.1900.live',
+    staging: 'https://11ty.1900.live',
+    production: 'https://11ty.1900.live',
   },
   ghost: {
     url: 'https://1900.live',
