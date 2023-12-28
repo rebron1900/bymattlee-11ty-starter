@@ -8,9 +8,7 @@
   <div class="u-mt-20 md:u-mt-40" data-s2r-el="stagger-fade-up" data-s2r-delay="0.2">
     {% if posts %}
       {% for post in posts %}
-        {% if loop.index <= 5 %}
           {% include 'partials/articles/preview.njk' %}
-        {% endif %}
       {% endfor %}
     {% else %}
       <p>No articles have been written.</p>

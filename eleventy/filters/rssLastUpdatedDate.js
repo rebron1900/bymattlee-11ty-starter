@@ -1,5 +1,5 @@
 /* ***** ----------------------------------------------- ***** **
-/* ***** RSS Last Updated Date Filter
+/* ***** RSS Last Updated Date Filter 获取文章最新时间
 /* ***** ----------------------------------------------- ***** */
 
 const { DateTime } = require('luxon')

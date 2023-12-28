@@ -16,7 +16,6 @@ const rssLastUpdatedDate = require("./eleventy/filters/rssLastUpdatedDate.js");
 const rssDate = require("./eleventy/filters/rssDate.js");
 const articleUrl = require("./eleventy/filters/articleUrl.js");
 const articleCategoryUrl = require("./eleventy/filters/articleCategoryUrl.js");
-const blocksToHtml = require("./eleventy/filters/blocksToHtml.js");
 const highlight = require("./eleventy/filters/highlight.js");
 
 // Import shortcodes
@@ -40,7 +39,7 @@ const stripDomain = (url) => {
 module.exports = function (config) {
   // Transforms
   // config.addTransform("parseContent", parseContent);
-  if (process.env.NODE_ENV !== "development")
+  if (process.env.NODE_ENV.trim() !== "development")
     config.addTransform("minifyHtml", minifyHtml);
   config.addTransform("addHeaderCredit", addHeaderCredit);
 
@@ -53,8 +52,13 @@ module.exports = function (config) {
   config.addFilter("rssDate", rssDate);
   config.addFilter("articleUrl", articleUrl);
   config.addFilter("articleCategoryUrl", articleCategoryUrl);
-  config.addFilter("blocksToHtml", blocksToHtml);
   config.addFilter("highlight", highlight);
+  config.addFilter("getReadingTime", (text) => {
+    const wordsPerMinute = 200;
+    const numberOfWords = text.split(/\s/g).length;
+    return Math.ceil(numberOfWords / wordsPerMinute);
+  });
+
 
   // Shortcodes
   config.addShortcode("imageUrl", imageUrl);
@@ -74,10 +78,7 @@ module.exports = function (config) {
     return Math.ceil(numberOfWords / wordsPerMinute);
   });
 
-  // Date formatting filter
-  config.addFilter("htmlDateString", (dateObj) => {
-    return new Date(dateObj).toISOString().split("T")[0];
-  });
+
 
   // Don't ignore the same files ignored in the git repo
   config.setUseGitIgnore(false);
@@ -97,9 +98,6 @@ module.exports = function (config) {
     collection.map((doc) => {
       doc.url = stripDomain(doc.url);
       doc.primary_author.url = stripDomain(doc.primary_author.url);
-
-      // Convert publish date into a Date object
-      doc.published_at = new Date(doc.published_at);
       return doc;
     });
 
@@ -111,7 +109,7 @@ module.exports = function (config) {
     collection = await api.posts
       .browse({
         include: "tags,authors",
-        limit: "all",
+        limit: "21",
         order: "published_at desc",
         filter: "visibility:public",
       })
@@ -124,8 +122,6 @@ module.exports = function (config) {
       post.primary_author.url = stripDomain(post.primary_author.url);
       post.tags.map((tag) => (tag.url = stripDomain(tag.url)));
       post.tags = post.tags.filter((tag) => tag.visibility == "public");
-      // Convert publish date into a Date object
-      post.published_at = new Date(post.published_at);
     });
 
     return collection;
@@ -197,8 +193,6 @@ module.exports = function (config) {
       post.primary_author.url = stripDomain(post.primary_author.url);
       post.tags.map((tag) => (tag.url = stripDomain(tag.url)));
       post.tags = post.tags.filter((tag) => tag.visibility == "public");
-      // Convert publish date into a Date object
-      post.published_at = new Date(post.published_at);
     });
 
     // Attach posts to their respective tags

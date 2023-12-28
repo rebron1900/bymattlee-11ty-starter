@@ -1,5 +1,5 @@
 /* ***** ----------------------------------------------- ***** **
-/* ***** Blocks To HTML Filter
+/* ***** Blocks To HTML Filter sanity块转换
 /* ***** ----------------------------------------------- ***** */
 
 const blocksToHtml = require('@sanity/block-content-to-html')

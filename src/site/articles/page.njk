@@ -24,7 +24,7 @@ permalink: /{{ article.slug }}/
       {% endif %}
 
       <div class="u-mt-5" data-s2r-el>
-        <time class="u-text-14 u-uppercase" datetime="{{ article.publishedAt | htmlDate }}">{{ article.publishedAt | readableDate }}</time>
+        <time class="u-text-14 u-uppercase" datetime="{{ article.published_at | htmlDate }}">{{ article.published_at | htmlDate }}</time>
         {% if article.categories.length %}
           <span>/</span>
           <span class="u-text-14 u-uppercase">
@@ -40,7 +40,7 @@ permalink: /{{ article.slug }}/
 
     {% if article.mainContent %}
       <div class="u-rich-text u-mt-30" data-s2r-el>
-        {{ article.mainContent | blocksToHtml | safe }}
+        {{ article.mainContent  | safe }}
       </div>
     {% endif %}
 

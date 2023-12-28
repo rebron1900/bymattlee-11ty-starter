@@ -1,3 +1,8 @@
+/* ***** ----------------------------------------------- ***** **
+/* ***** Cache Bust Filter 文章主题代码高亮
+/* ***** ----------------------------------------------- ***** */
+
+
 const { parseHTML } = require('linkedom');
 const hljs  = require("highlight.js")
 
@@ -8,7 +13,6 @@ module.exports = (value) => {
     for (const block of blocks) {
         block.innerHTML = hljs.highlightAuto(block.innerHTML).value;
     }
-    
     value = document.toString();
     return value;
   }

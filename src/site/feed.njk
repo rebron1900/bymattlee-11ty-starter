@@ -22,7 +22,7 @@ permalink: feed.xml
       <id>{{ article.slug | articleUrl }}</id>
       {% if article.mainContent %}
         <content type="html"><![CDATA[
-          {{ article.mainContent | blocksToHtml | safe }}
+          {{ article.mainContent | safe }}
         ]]></content>
         {% endif %}
     </entry>

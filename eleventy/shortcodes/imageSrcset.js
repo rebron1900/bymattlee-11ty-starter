@@ -1,5 +1,5 @@
 /* ***** ----------------------------------------------- ***** **
-/* ***** Image Srcset Shortcode
+/* ***** Image Srcset Shortcode 图片多规格转换
 /* ***** ----------------------------------------------- ***** */
 
 const absoluteUrl = require('../filters/absoluteUrl.js')

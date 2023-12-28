@@ -1,5 +1,5 @@
 /* ***** ----------------------------------------------- ***** **
-/* ***** Image URL Shortcode
+/* ***** Image URL Shortcode 图片宽高处理
 /* ***** ----------------------------------------------- ***** */
 
 const client = require('../utilities/sanityClient.js')
