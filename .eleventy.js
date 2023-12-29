@@ -42,6 +42,7 @@ module.exports = function (config) {
   if (process.env.NODE_ENV.trim() !== "development")
     config.addTransform("minifyHtml", minifyHtml);
   config.addTransform("addHeaderCredit", addHeaderCredit);
+  config.addTransform("parseContent", parseContent);
 
   // Filters
   config.addFilter("absoluteUrl", absoluteUrl);

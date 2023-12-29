@@ -3,6 +3,7 @@
 /* ***** ----------------------------------------------- ***** */
 
 const jsdom = require('jsdom')
+const imageSrcset = require('./../shortcodes/imageSrcset')
 const { JSDOM } = jsdom
 
 module.exports = (content, outputPath) => {
@@ -16,13 +17,14 @@ module.exports = (content, outputPath) => {
       articleImages.forEach((image) => {
         // Set image src to data-src
         const imageSrc = image.getAttribute('src')
-        image.setAttribute('data-src', imageSrc)
+        image.setAttribute('data-srcset', imageSrcset(imageSrc))
         image.removeAttribute('src')
 
         // Add lazyload class for lazysizes plugin
         image.classList.add('lazyload')
       })
     }
+
 
     // Wrap video player with container to make size responsive and add lazyload
     const articleVideos = [...document.querySelectorAll('.u-rich-text iframe')]

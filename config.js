@@ -9,6 +9,7 @@ module.exports = {
     development: 'http://localhost:3000',
     staging: 'https://11ty.1900.live',
     production: 'https://11ty.1900.live',
+    cdnUrl: 'https://cdn.1900.live'
   },
   ghost: {
     url: 'https://1900.live',
