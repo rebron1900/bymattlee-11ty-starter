@@ -106,7 +106,7 @@ module.exports = function (config) {
     collection = await api.posts
       .browse({
         include: "tags,authors",
-        limit: "21",
+        limit: "all",
         order: "published_at desc",
         filter: "visibility:public",
       })
